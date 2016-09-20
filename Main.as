@@ -985,20 +985,119 @@
 			shiftX = 0;
 			
 			var allCoordinates = {
-				x1:442, y1:305,
-				x2:1250, y2:285,
-				x3:1533, y3:220,
-				x4:860, y4:315,
-				x5:1400, y5:250,
-				x6:755, y6:250,
-				x7:1863, y7:154,
-				x8:780, y8:350,
-				x9:1140, y9:314,
-				x10:1886, y10:239};
+				m1x1:442, m1y1:305, m1r1:0,
+				m1x2:755, m1y2:250, m1r2:0,
+				m1x3:1250, m1y3:285, m1r3:0,
+				m1x4:1533, m1y4:220, m1r4:0,
+				
+				m2x1:1400, m2y1:250, m2r1:0,
+				m2x2:1863, m2y2:154, m2r2:0,
+				
+				m3x1:780, m3y1:350, m3r1:0,
+				m3x2:1140, m3y2:314, m3r2:0,
+				m3x3:1886, m3y3:239, m3r3:0,
+				
+				x4:860, y4:315, m1r2:0
+			};
 				
 			createEnemies(allCoordinates);
 			createMines({x1:392, y1:304, r1:0, x2:924, y2:274, r2:14, x3:0, y3:252, r3:0, x4:500, y4:210, r4:0, x5:516, y5:208, r5:0, x6:780, y6:350, r6:0});
 			createBonus({x1:581, y1:272, r1:-14, x2:1250, y2:285, r2:-14, x3:1533, y3:220, r3:0, x4:845, y4:314, r4:0, x5:755, y5:250, r5:0, x6:1140, y6:314, r6:0});
+		}
+		
+		public function createEnemies(coordinates:Object):void {
+			var i:int;
+			if(currentLevel == 1){
+				Enemies.addChild(enemy1);
+				selectEnemyType(enemy1, 1);
+				enemy1.rotation = 0;
+				totalNumberOfEnemies = 1;
+				enemy1.x = coordinates['m1x1'];
+				enemy1.y = coordinates['m1y1'];
+				enemy1.t1x = 0;
+				enemy1.t2x = 0;
+				enemy1.t1y = 0;
+				enemy1.t2y = 0;
+			}else if(currentLevel == 2){
+				Enemies.addChild(enemy1);
+				enemy1.gotoAndStop(1);
+				enemy1.gun.gotoAndStop(1);
+				enemy1.rotation = 0;
+				totalNumberOfEnemies = 1;
+				enemy1.x = coordinates['m2x1'];
+				enemy1.y = coordinates['m2y1'];
+				enemy1.t1x = 0;
+				enemy1.t2x = 0;
+				enemy1.t1y = 0;
+				enemy1.t2y = 0;
+			}else if(currentLevel == 3){
+				for(i = 1; i < 3; i++){
+					var ii = i + 2;
+					Enemies.addChild(this['enemy' + i]);
+					this['enemy' + i].gotoAndStop(1);
+					this['enemy' + i].gun.gotoAndStop(1);
+					this['enemy' + i].rotation = 0;
+					totalNumberOfEnemies = 2;
+					this['enemy' + i].x = coordinates['m1x' + ii];
+					this['enemy' + i].y = coordinates['m1y' + ii];
+					this['enemy' + i].t1x = 0;
+					this['enemy' + i].t2x = 0;
+					this['enemy' + i].t1y = 0;
+					this['enemy' + i].t2y = 0;
+				}
+			}else if(currentLevel == 4){
+				for(i = 1; i < 3; i++){
+					Enemies.addChild(this['enemy' + i]);
+					this['enemy' + i].gotoAndStop(1);
+					this['enemy' + i].gun.gotoAndStop(1);
+					this['enemy' + i].rotation = 0;
+					this['enemy' + i].x = coordinates['m1x' + i];
+					this['enemy' + i].y = coordinates['m1y' + i];
+					this['enemy' + i].t1x = 0;
+					this['enemy' + i].t2x = 0;
+					this['enemy' + i].t1y = 0;
+					this['enemy' + i].t2y = 0;
+				}
+				totalNumberOfEnemies = 2;
+				enemyDot.x = coordinates['m2x2'];
+				enemyDot.y = coordinates['m2y2']+50;
+				enemyDot.gotoAndStop(1);
+			}else if(currentLevel == 5){
+				for(i = 1; i < 4; i++){
+					Enemies.addChild(this['enemy' + i]);
+					this['enemy' + i].gotoAndStop(1);
+					this['enemy' + i].gun.gotoAndStop(1);
+					this['enemy' + i].rotation = 0;
+					totalNumberOfEnemies = 3;
+					this['enemy' + i].x = coordinates['m3x' + i];
+					this['enemy' + i].y = coordinates['m3y' + i];
+					this['enemy' + i].t1x = 0;
+					this['enemy' + i].t2x = 0;
+					this['enemy' + i].t1y = 0;
+					this['enemy' + i].t2y = 0;
+					Enemies.addChild(vip);
+					vip.x = 150;
+					vip.y = 250;
+				}
+			}else if(currentLevel == 6){
+				for(i = 1; i < 4; i++){
+					Enemies.addChild(this['enemy' + i]);
+					this['enemy' + i].gotoAndStop(1);
+					this['enemy' + i].gun.gotoAndStop(1);
+					this['enemy' + i].rotation = 0;
+					totalNumberOfEnemies = 3;
+					this['enemy' + i].x = coordinates['m1x' + i];
+					this['enemy' + i].y = coordinates['m1y' + i];
+					this['enemy' + i].t1x = 0;
+					this['enemy' + i].t2x = 0;
+					this['enemy' + i].t1y = 0;
+					this['enemy' + i].t2y = 0;
+					if(i == 3){
+						selectEnemyType(enemy3, 2);
+					}
+				}
+			}
+			prebattleUI.fuel.text = chassisFuelVar;
 		}
 		
 		public function createMines(coordinates:Object):void {
@@ -1047,105 +1146,6 @@
 				bonus.y = coordinates['y5'];
 				bonus.rotation = coordinates['r5'];
 			}
-		}
-		
-		public function createEnemies(coordinates:Object):void {
-			var i:int;
-			if(currentLevel == 1){
-				Enemies.addChild(enemy1);
-				selectEnemyType(enemy1, 1);
-				enemy1.rotation = 0;
-				totalNumberOfEnemies = 1;
-				enemy1.x = coordinates['x6'];
-				enemy1.y = coordinates['y6'];
-				enemy1.t1x = 0;
-				enemy1.t2x = 0;
-				enemy1.t1y = 0;
-				enemy1.t2y = 0;
-			}else if(currentLevel == 2){
-				Enemies.addChild(enemy1);
-				enemy1.gotoAndStop(1);
-				enemy1.gun.gotoAndStop(1);
-				enemy1.rotation = 0;
-				totalNumberOfEnemies = 1;
-				enemy1.x = coordinates['x5'];
-				enemy1.y = coordinates['y5'];
-				enemy1.t1x = 0;
-				enemy1.t2x = 0;
-				enemy1.t1y = 0;
-				enemy1.t2y = 0;
-			}else if(currentLevel == 3){
-				for(i = 1; i < 3; i++){
-					var ii = i + 1;
-					Enemies.addChild(this['enemy' + i]);
-					this['enemy' + i].gotoAndStop(1);
-					this['enemy' + i].gun.gotoAndStop(1);
-					this['enemy' + i].rotation = 0;
-					totalNumberOfEnemies = 2;
-					this['enemy' + i].x = coordinates['x' + ii];
-					this['enemy' + i].y = coordinates['y' + ii];
-					this['enemy' + i].t1x = 0;
-					this['enemy' + i].t2x = 0;
-					this['enemy' + i].t1y = 0;
-					this['enemy' + i].t2y = 0;
-				}
-			}else if(currentLevel == 4){
-				for(i = 1; i < 3; i++){
-					Enemies.addChild(this['enemy' + i]);
-					this['enemy' + i].gotoAndStop(1);
-					this['enemy' + i].gun.gotoAndStop(1);
-					this['enemy' + i].rotation = 0;
-					this['enemy' + i].t1x = 0;
-					this['enemy' + i].t2x = 0;
-					this['enemy' + i].t1y = 0;
-					this['enemy' + i].t2y = 0;
-				}
-				enemy1.x = coordinates['x' + 5];
-				enemy1.y = coordinates['y' + 5];
-				enemy2.x = coordinates['x' + 7];
-				enemy2.y = coordinates['y' + 7];
-				totalNumberOfEnemies = 2;
-				enemyDot.x = coordinates['x' + 7];
-				enemyDot.y = coordinates['y' + 7]+50;
-				enemyDot.gotoAndStop(1);
-			}else if(currentLevel == 5){
-				for(i = 1; i < 4; i++){
-					Enemies.addChild(this['enemy' + i]);
-					this['enemy' + i].gotoAndStop(1);
-					this['enemy' + i].gun.gotoAndStop(1);
-					this['enemy' + i].rotation = 0;
-					totalNumberOfEnemies = 3;
-					this['enemy' + i].x = coordinates['x' + i];
-					this['enemy' + i].y = coordinates['y' + i];
-					enemy1.x = coordinates['x6'];
-					enemy1.y = coordinates['y6'];
-					this['enemy' + i].t1x = 0;
-					this['enemy' + i].t2x = 0;
-					this['enemy' + i].t1y = 0;
-					this['enemy' + i].t2y = 0;
-					Enemies.addChild(vip);
-					vip.x = 150;
-					vip.y = 250;
-				}
-			}else if(currentLevel == 6){
-				for(i = 1; i < 4; i++){
-					Enemies.addChild(this['enemy' + i]);
-					this['enemy' + i].gotoAndStop(1);
-					this['enemy' + i].gun.gotoAndStop(1);
-					this['enemy' + i].rotation = 0;
-					totalNumberOfEnemies = 3;
-					this['enemy' + i].x = coordinates['x' + i];
-					this['enemy' + i].y = coordinates['y' + i];
-					this['enemy' + i].t1x = 0;
-					this['enemy' + i].t2x = 0;
-					this['enemy' + i].t1y = 0;
-					this['enemy' + i].t2y = 0;
-					if(i == 3){
-						selectEnemyType(enemy3, 2);
-					}
-				}
-			}
-			prebattleUI.fuel.text = chassisFuelVar;
 		}
 		
 		public function selectEnemyType(e, t):void{
